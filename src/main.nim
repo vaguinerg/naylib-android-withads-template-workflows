@@ -20,36 +20,49 @@ when not defined(android):
 
 const
   screenWidth = 800
-  screenHeight = 450
+  screenHeight = 600
 
-var centerText = "click to start rewarded ad"
+initWindow(screenWidth, screenHeight, "3D do zero")
+setTargetFPS(60)
 
-rewardAdCallback = proc() =
-  centerText = "got reward"
+# câmera
+var camera = Camera3D(
+  position: Vector3(x: 0, y: 2, z: 6), # onde a câmera está
+  target: Vector3(x: 0, y: 1, z: 0),   # para onde olha
+  up: Vector3(x: 0, y: 1, z: 0),       # qual direção é "cima"
+  fovy: 60,
+  projection: Perspective
+)
 
-proc main =
-  echo "open window.."
-  initWindow(screenWidth, screenHeight, "raylib game template")
-  initAudioDevice()
-  const textSize = 20
-  let textWidth = measureText(centerText, textSize)
-  loadAd()
-  try:
-    var music = loadMusicStream("resources/ambient.ogg")
-    setMusicVolume(music, 1)
-    playMusicStream(music)
-    setTargetFPS(60)
-    while not windowShouldClose():
-      updateMusicStream(music)
-      drawing:
-        clearBackground(Black)
-        drawText(centerText, (screenWidth - textWidth) div 2, 200, textSize, White)
-      if isGestureDetected(Tap):
-        showAd()
+# posição do cubo
+var cubePos = Vector3(x: 0, y: 0.0, z: 0)
+disableCursor()
 
-    reset(music)
-  finally:
-    closeAudioDevice()
-    closeWindow()
+while not windowShouldClose():
 
-main()
+  cubePos.y += 0.01
+
+  updateCamera(camera, CameraMode.FirstPerson)
+
+  beginDrawing()
+
+  clearBackground(RayWhite)
+
+  beginMode3D(camera)
+
+  # chão
+  drawGrid(20, 1.0)
+
+  # cubo
+  drawCube(cubePos, 2, 2, 2, Red)
+
+  # linhas do cubo
+  drawCubeWires(cubePos, 2, 2, 2, Black)
+
+  endMode3D()
+
+  drawText("WASD para mover", 10, 10, 20, Black)
+
+  endDrawing()
+
+closeWindow()
