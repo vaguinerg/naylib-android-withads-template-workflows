@@ -45,6 +45,7 @@ jobs:
           export CXX=em++
           
           nim c \
+            --cpu:wasm32 \
             -d:emscripten \
             --cc:clang \
             --clang.exe=emcc \
