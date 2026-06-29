@@ -26,7 +26,11 @@ jobs:
           version: master
     
       - name: Install Nim deps
-        run: nimble install naylib nimja spacy https://github.com/planetis-m/naygui zigcc -y
+        run: |
+          OLDPWD="$PWD"
+          cd "$(mktemp -d)"
+          nimble install naylib nimja spacy https://github.com/planetis-m/naygui zigcc -y
+          cd "$OLDPWD"
 
       - name: Install dependencies
         run: |
@@ -76,7 +80,11 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Nim deps
-        run: nimble install naylib nimja spacy https://github.com/planetis-m/naygui -y
+        run: |
+          OLDPWD="$PWD"
+          cd "$(mktemp -d)"
+          nimble install naylib nimja spacy https://github.com/planetis-m/naygui -y
+          cd "$OLDPWD"
 
       - name: Build macOS binary
         run: nim c -d:GraphicsApiOpenGlEs2 --passC:"-Ofast -flto -march=native" --passL:"-flto"  -o:src/bin/dark_rogue src/main.nim
@@ -113,7 +121,11 @@ jobs:
 
       - name: Build APK
         run: |
+          OLDPWD="$PWD"
+          cd "$(mktemp -d)"
           nimble install naylib nimja spacy https://github.com/planetis-m/naygui -y
+          cd "$OLDPWD"
+      
           nimble setupAndroid
           nimble buildAndroid
 
@@ -143,7 +155,11 @@ jobs:
           version: master
           
       - name: Install Nim deps
-        run: nimble install naylib nimja spacy https://github.com/planetis-m/naygui zigcc -y
+        run: |
+          OLDPWD="$PWD"
+          cd "$(mktemp -d)"
+          nimble install naylib nimja spacy https://github.com/planetis-m/naygui zigcc -y
+          cd "$OLDPWD"
 
       - name: Build Windows binary
         run: |
