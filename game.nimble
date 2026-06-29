@@ -18,6 +18,3 @@ if detectOs(Windows):
  foreignDep "wget"
 elif detectOs(Ubuntu):
  foreignDep "default-jdk"
-
-# Tasks
-include "build_android.nims"
