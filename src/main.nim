@@ -1,17 +1,3 @@
-# ****************************************************************************************
-#
-#   raylib game template
-#
-#   <Game title>
-#   <Game description>
-#
-#   This game has been created using raylib (www.raylib.com)
-#   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-#
-#   Copyright (c) 2021 Ramon Santamaria (@raysan5)
-#
-# ****************************************************************************************
-
 import raylib, ./admob
 
 when not defined(android):
@@ -22,8 +8,9 @@ const
   screenWidth = 800
   screenHeight = 600
 
+setTraceLogLevel(None)
+setConfigFlags(flags(WindowResizable, Msaa4xHint, VsyncHint))
 initWindow(screenWidth, screenHeight, "3D do zero")
-setTargetFPS(60)
 
 # câmera
 var camera = Camera3D(
