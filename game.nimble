@@ -8,7 +8,7 @@ binDir        = "desktop"
 namedBin      = {"main": "game"}.toTable
 
 # Dependencies
-requires "nim 2.2.2"
+requires "nim"
 requires "naylib"
 requires "nimja"
 
