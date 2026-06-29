@@ -181,7 +181,6 @@ var camera = Camera(
 
 updateCameraFPS(camera)
 disableCursor()
-setTargetFPS(60)
 
 while not windowShouldClose():
   # Atualização
