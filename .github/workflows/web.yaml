@@ -45,10 +45,11 @@ jobs:
           export CXX=em++
           
           nim c \
-            -d:emscripten \
+            --cpu:i386 \
             --cc:clang \
             --clang.exe=emcc \
             --clang.linkerexe=emcc \
+            -d:emscripten \
             src/main.nim
             
       - name: Upload Web Artifact
