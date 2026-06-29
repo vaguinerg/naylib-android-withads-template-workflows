@@ -41,19 +41,8 @@ jobs:
           cd "$(mktemp -d)"
           nimble install naylib nimja spacy https://github.com/planetis-m/naygui -y
           cd "$OLDPWD"
-          export CC=emcc
-          export CXX=em++
           
-          nim c \
-            --cpu:i386 \
-            --cc:clang \
-            --clang.exe=emcc \
-            --clang.linkerexe=emcc \
-            --out:web/index.html \
-            --passL:"-sWASM=1" \
-            -d:emscripten \
-            -d:release \
-            src/main.nim
+          nim c -f -d:danger --opt:size -d:emscripten --passC:"-msimd128 -O3 -mavx" src/main.nim
             
       - name: Upload Web Artifact
         uses: actions/upload-artifact@v4
